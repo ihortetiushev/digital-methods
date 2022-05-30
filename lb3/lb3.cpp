@@ -220,7 +220,7 @@ int main()
     Element** initialMatrix;
 
     initialMatrix = new Element * [ROWS];
-    initialMatrix[0] = new Element[COLUMNS] { Element(0,6), Element(1,10), Element(2,12), Element(50), };
+    initialMatrix[0] = new Element[COLUMNS] { Element(0,6), Element(1,10), Element(2,12), Element(50) };
     initialMatrix[1] = new Element[COLUMNS] { Element(0,0), Element(1,4),  Element(2,8),  Element(24) };
     initialMatrix[2] = new Element[COLUMNS] { Element(0,2), Element(1,1),  Element(2,1),  Element(6) };
 
