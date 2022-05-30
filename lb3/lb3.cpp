@@ -11,7 +11,7 @@ void printMatrix(double** matrix, int rows, int columns)
     {
         for (int k = 0; k < columns; k++) 
         {
-            cout << setw(10) << right << matrix[i][k];
+            cout << setw(10) << left << matrix[i][k];
         }
         cout << endl;
     }
@@ -23,7 +23,6 @@ struct MainElement {
     double value=0;
     double* row;
 };
-
 MainElement findMainElement(double** matrix, int rows, int columns)
 {
     double max = -DBL_MAX;
@@ -106,14 +105,18 @@ double** multiplyM(double** a, int rows, int columns, MainElement main, double* 
     delete[] * interimResult;
     return result;
 }
-double calculateRoot(MainElement elem, vector<double> results) 
+double calculateRoot(MainElement elem, double results[], int resultIndex, int toFindIndex) 
 {
     double sum = 0;
-    for (int i = 0; i < elem.size - 2; i++) 
+    for (int i = 0; i < elem.size - 1; i++) 
     {
-        sum = sum + elem.row[i] * results.at(i);
+        if (!isnan(results[i])) 
+        {
+            sum = sum + elem.row[i] * results[i];
+        }
     }
-    double res = (elem.row[elem.size - 1] - sum) / elem.row[elem.size - 2];
+    double res = (elem.row[elem.size - 1] - sum) / elem.row[toFindIndex];
+    results[resultIndex] = res;
     return res;
 }
 void printMainElement(MainElement elem)
@@ -146,7 +149,7 @@ vector<MainElement> getAllMainElements(double** matrix, int rows, int cols)
     }
     return mainElements;
 }
-int main()
+int *main()
 {
     const int ROWS = 3;
     const int COLUMNS = 4;
@@ -157,28 +160,16 @@ int main()
     initialMatrix[1] = new double[COLUMNS] { 0, 4,  8,  24 };
     initialMatrix[2] = new double[COLUMNS] { 2, 1,  1,  6 };
 
-   /* initialMatrix = new double* [ROWS];
-initialMatrix[0] = new double[COLUMNS] { 1, 5, 3, -4, 20 };
-initialMatrix[1] = new double[COLUMNS] { 3, 1, -2, 0, 9 };
-initialMatrix[2] = new double[COLUMNS] { 5, -7, 0, 10, -9 };
-initialMatrix[3] = new double[COLUMNS] { 0, 3, -5, 0, 1 };*/
-
-   
     printMatrix(initialMatrix, ROWS, COLUMNS);
 
     vector<MainElement> mainElements = getAllMainElements(initialMatrix, ROWS, COLUMNS);
  
-    vector<double> result;
-    for (int i= mainElements.size()-1; i>=0; i--)
-    {
-        MainElement current = mainElements.at(i);
-        double root = calculateRoot(current, result);
-        result.push_back(root);
-    }
+    double result[ROWS] = {nan(""),nan(""), nan("")};
 
-    for (int i=0; i<result.size(); i++) 
-    {
-        cout << "x" + to_string(i + 1) + " = " << setw(3) << result.at(i) << endl;
-    }
-
+    double x1 = calculateRoot(mainElements.at(2), result, 1, 0);
+    double x0 = calculateRoot(mainElements.at(1), result, 0, 0);
+    double x2 = calculateRoot(mainElements.at(0), result, 2, 2);
+    cout << "x0 = " << setw(3) << x0 << endl;
+    cout << "x1 = " << setw(3) << x1 << endl;
+    cout << "x2 = " << setw(3) << x2 << endl;
 }
