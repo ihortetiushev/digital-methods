@@ -40,11 +40,11 @@ void printMatrix(Element** matrix, int rows, int columns)
 }
 
 struct MainElement {
-    int p=0;
-    int q=0;
+    int p = 0;
+    int q = 0;
     int size = 0;
-    double value=0;
-    Element* row;
+    double value = 0;
+    Element* row = nullptr;
 };
 MainElement findMainElement(Element** matrix, int rows, int columns)
 {
@@ -236,7 +236,7 @@ int main()
     }
     //top first  main element contains all roots
     Element *result = mainElements.at(0).row;
-    for (int i=0; i< mainElements.size(); i++)
+    for (unsigned int i = 0; i < mainElements.size(); i++)
     {
        cout << "x" + to_string(result[i].index) + " = " << setw(3) << result[i].x << endl;
     }
