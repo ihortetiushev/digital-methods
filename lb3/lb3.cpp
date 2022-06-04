@@ -45,7 +45,8 @@ void printMatrix(Element** matrix, int rows, int columns)
     }
 }
 
-struct MainElement {
+struct MainElement 
+{
     int p = 0;
     int q = 0;
     int size = 0;
