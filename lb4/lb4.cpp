@@ -182,5 +182,4 @@ int main()
     cout << setw(15) << "(x7 - 0,0146) ";
     printValues(x2ForInterpollation, newton(x2ForInterpollation, xi, yi));
     cout << "--------------------------------------------------------" << endl;
-
  }
